@@ -4,19 +4,22 @@ import {
     ComponentFactoryResolver,
     EmbeddedViewRef,
     ApplicationRef,
-    ElementRef
+    ElementRef,
+    ViewContainerRef,
+    ComponentFactory,
+    ComponentRef
 } from '@angular/core';
 
 @Injectable()
 export class DomService {
-  
+  componentRef: ComponentRef<any>;
   constructor(
       private componentFactoryResolver: ComponentFactoryResolver,
       private appRef: ApplicationRef,
       private injector: Injector,
   ) { }
   
-  appendComponentToBody(component: any, elementRef: ElementRef) {
+  appendComponentToElement(component: any, elementRef: ElementRef) {
     // 1. Create a component reference from the component 
     const componentRef = this.componentFactoryResolver
       .resolveComponentFactory(component)
@@ -38,5 +41,21 @@ export class DomService {
     //     this.appRef.detachView(componentRef.hostView);
     //     componentRef.destroy();
     // }, 3000);
+  }
+
+  createComponent(type: any, container: ViewContainerRef, component: any) {
+
+    const factory: ComponentFactory<any> = this.componentFactoryResolver.resolveComponentFactory(component);
+    this.componentRef = container.createComponent(factory);    
+    this.componentRef.instance.pageTitle = type;
+    this.componentRef.instance.data = [
+      ['Group 1', 45.0],
+      ['Group 2', 26.8],
+      ['Group 3', 12.8],
+      ['Group 4', 8.5],
+      ['Group 5', 6.2],
+      ['Group 6', 0.7]
+  ];
+  this.componentRef.instance.type = type;
   }
 }

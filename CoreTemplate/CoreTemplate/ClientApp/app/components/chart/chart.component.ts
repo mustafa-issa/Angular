@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Chart } from 'angular-highcharts';
 
 @Component({
@@ -7,59 +7,52 @@ import { Chart } from 'angular-highcharts';
     styleUrls: ['./chart.component.css']
 })
 export class ChartComponent implements OnInit {
+    @Input() pageTitle: string = 'chart';
     chartCredits ={
         enabled: true,
         href: "http://www.chartsmix.com",
         text: "Chartsmix"
     };
     chartName: string = "chart4";
-
+    chart4 : any;
     constructor() { }
-
+    data = [];
+    type = "";
     ngOnInit() {
-    }
-
-    chart4 = new Chart({
-        chart: {
-            type: 'pie',
-            options3d: {
-                enabled: true,
-                alpha: 45,
-                beta: 0
-            },
-            height: '70%'
-        },
-
-        title: {
-            text: 'Meter Groups'
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                depth: 35,
-                dataLabels: {
+        this.chart4 = new Chart({
+            chart: {
+                type: this.type,
+                options3d: {
                     enabled: true,
-                    format: '{point.name}'
+                    alpha: 45,
+                    beta: 0
+                },
+                height: '70%'
+            },
+    
+            title: {
+                text: 'Meter Groups'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    depth: 35,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.name}'
+                    }
                 }
-            }
-        },
-        credits: this.chartCredits,
-        series: [{
-            type: 'pie',
-            name: 'Meters Group',
-            data: [
-                ['Group 1', 45.0],
-                ['Group 2', 26.8],
-                ['Group 3', 12.8],
-                ['Group 4', 8.5],
-                ['Group 5', 6.2],
-                ['Group 6', 0.7]
-            ]
-        }]
-    });
-
+            },
+            credits: this.chartCredits,
+            series: [{
+                type: this.type,
+                name: 'Meters Group',
+                data: this.data
+            }]
+        });
+    }
 }
