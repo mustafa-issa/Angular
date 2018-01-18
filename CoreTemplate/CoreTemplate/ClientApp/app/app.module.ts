@@ -9,6 +9,10 @@ import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
+import { ChartComponent } from './components/chart/chart.component';
+import { ChartModule } from 'angular-highcharts';
+import { ChartsComponent } from './components/charts/charts.component';
+import { DomService } from './components/charts/dom.service';
 
 @NgModule({
     declarations: [
@@ -16,7 +20,9 @@ import { CounterComponent } from './components/counter/counter.component';
         NavMenuComponent,
         CounterComponent,
         FetchDataComponent,
-        HomeComponent
+        HomeComponent,
+        ChartComponent,
+        ChartsComponent
     ],
     imports: [
         CommonModule,
@@ -28,8 +34,11 @@ import { CounterComponent } from './components/counter/counter.component';
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
             { path: '**', redirectTo: 'home' }
-        ])
-    ]
+        ]),
+        ChartModule
+    ],
+    providers : [DomService],
+    entryComponents: [ ChartComponent ]
 })
 export class AppModuleShared {
 }

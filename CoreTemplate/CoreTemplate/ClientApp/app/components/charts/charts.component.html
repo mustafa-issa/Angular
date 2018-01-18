@@ -1,0 +1,10 @@
+hello
+<select #selectElem (change)="setNewUser(selectElem.value)">
+    <option *ngFor="let key of keys" [value]="key" [label]="chartTypes[key]"></option>
+</select>
+
+<a class='btn btn-default' (click)='test()'>
+     Genetrate New Chart
+</a>
+
+<div class="one" #one></div>
